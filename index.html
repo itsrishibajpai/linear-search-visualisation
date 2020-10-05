@@ -3,119 +3,313 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Linear Search Visualisation</title>
+    <title>Linear search Visualisation</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css" />
+
     <script src="js/script.js"></script>
+
   </head>
   <body>
-    <button id="launch">Instructions</button>
-    <div id="popup">
-      <span class="close">&times;</span>
-      <h2>Instructions :</h2>
-      <ul id="instructions">
-        <li class="list-items">Scroll Page for options available</li>
-        <li class="list-items">There are two panes in the bottom:</li>
-        <li class="list-items">One for taking Inputs and</li>
-        <li class="list-items">Second to elaborate code step-by-step</li>
-        <li class="list-items">
-          Enter the values and press "Show" to show the entered data
-        </li>
-        <li class="list-items">
-          To search any element, enter that and press "Start"
-        </li>
-        <li class="list-items">
-          Please don't enter any new search while one is Searching
-        </li>
-      </ul>
-      <!-- Actions -->
-      <div class="btn-container">
-        <a href="#canvas">
-          <input
-            type="button"
-            name="input"
-            value="Start Simulation"
-            onclick="start()"
-            class="btn btn-red"
-          />
-        </a>
-        <a href="#input">
-          <input
-            type="button"
-            name="start"
-            value="Enter your Array"
-            onclick="input()"
-            class="btn btn-green"
-          />
-        </a>
+
+    <!-- =========== Push question popup ========== -->
+    <div class="question-modal" id="dropmenu">
+      <div id="modal-head">
+        <h2>Where do you want to drop the Bomb?</h2>
+        <span class="close-menu close-btn">&times;</span>
+      </div>
+      <div id="modal-content">
+        <div id="answer">
+          <div id="ans-left">
+            <div class="option" id="option-a">Park</div>
+            <div class="option" id="option-b">Temple</div>
+            <div class="option" id="option-c">School</div>
+            <div class="option" id="option-d">Hospital</div>
+          </div>
+          <div id="ans-right">
+            <div class="option" id="option-e">Bus Stop</div>
+            <div class="option" id="option-f">Railway Station</div>
+            <div class="option" id="option-g">Shopping Mall</div>
+            <div class="option" id="option-h">Not in the city</div>
+          </div>
+        </div>
       </div>
     </div>
+    <!-- ======== Push question popup ends ======== -->
 
     <!-- Wrapper for whole HTML document -->
     <div class="wrapper">
-      <div id="container">
-        <!-- ======= This is Canvas area ========= -->
-        <div id="canvas" class="box box-full">
-          <h2 style="position: absolute">Linear Search Visualisation</h2>
 
-          <!-- Canvas Element to draw Animations -->
-          <div id="canvas-wrapper">
-            <canvas id="board"></canvas>
-          </div>
+      <!-- ==== launch buttons ==== -->
+      <div class="btn-wrapper">
+        <button id="launch">Instructions</button>
+        <button id="gameLaunch">Instructions</button>
+      </div>
 
-          <!-- Labels to show data steps -->
-          <!-- <h3>Current Step -></h3> -->
-          <div class="check" id="check">
-            <p id="label1"></p>
-            <p id="label2"></p>
-          </div>
+      <!-- ===== Instructions for algorithmic Visualisation ===== -->
+      <div id="popup">
+        <span class="close">&times;</span>
+        <h2>Instructions :</h2>
+        <div id="instructions">
+            <li class="list-items">Scroll Page for options available</li>
+            <li class="list-items">There are two panes in the bottom:</li>
+            <li class="list-items">One for taking Inputs and</li>
+            <li class="list-items">Second to elaborate code step-by-step</li>
+            <li class="list-items">
+              Enter the values and press "Show" to show the entered data
+            </li>
+            <li class="list-items">
+              To search any element, enter that and press "Start"
+            </li>
+            <li class="list-items">
+              Please don't enter any new search while one is Searching
+            </li>
 
-          <!-- Current Step in Algorithm -->
-          <li class="code-line current-step" id="current-step">
-            Current Algorithm steps explaination will appear here<br/>
+            <!-- Actions -->
+            <div class="btn-container">
+              <input
+                type="button"
+                name="input"
+                value="Start Simulation"
+                onclick="start()"
+                class="btn btn-red"
+              />
+              <input
+                type="button"
+                name="input"
+                value="Gamified Visualisation"
+                class="btn btn-yellow"
+                onclick="runVisualisation()"
+              />
+              <input
+                type="button"
+                name="start"
+                value="Enter your Array"
+                onclick="input()"
+                class="btn btn-green"
+              />
+            </div>
+        </div>
+      </div>
+
+      <!-- =========== Instructions for gamified Visualisation ============= -->
+      <div id="gamePopup">
+        <span class="gameClose">&times;</span>
+        <h2>Linear Search Visualisation using Drop the Bomb Game</h2>
+        <ul id="gameInstructions">
+          <p
+            class="code-line"
+            style="text-align: justify; font-size: 16px; line-height: 24px; font-weight: 400; margin-bottom: 20px;"
+          >
+            This [Drop the Bomb] interface is a gamified approach to illustrate the working of linear Search algorithm.
+            In this interface there is a Cop present on the left most side of the user screen (beside all the places in a city).
+          </p>
+          <li class="list-items">
+            The list of places will act like elements in an array.
           </li>
-
-          <!-- Canvas Actions -->
-          <div class="btn-container" id="actions">
-            <input
-              type="button"
-              name="input"
-              value="< Prev"
-              onclick="prev()"
-              class="btn btn-yellow hide"
-              id="prev"
-            />
-            <a href="#canvas">
-            <input
-              type="button"
-              name="reset"
-              value="Start"
-              onclick="start()"
-              class="btn btn-red show"
-              id="start"
-            />
-            </a>
-            <input
-              type="button"
-              name="start"
-              value="Next >"
-              onclick="next()"
-              class="btn btn-green hide"
-              id="next"
-            />
+          <li class="list-items">
+            You as a user will drop a bomb to one of the given places similar to entering an element 
+            to search it in the array using Linear search approach.
+          </li>
+          <li class="list-items">
+            Upon placing the bomb the Cop will start moving towards each place from its initial position.
+          </li>
+          <li class="list-items">
+            The Cop will move and search for the bomb at each place that will take some time similar to finding an element in an array.
+          </li>
+          <li class="list-items">
+            If the cop reaches the location where bomb was planted it will glow with Green color showing <span style="color: #4caf50;">SUCCESS</span>.
+          </li>
+          <li class="list-items">
+            If it fails finding the bomb at a given place it will glow in Red showing <span style="color: #ff0730;">FAILURE</span>. and will move towards next place.
+          </li>
+        </ul>
+        <!-- Actions -->
+        <div class="btn-container">
+          <input
+            type="button"
+            name="start"
+            value="Drop the Bomb"
+            onclick="drop()"
+            class="btn btn-red"
+          />
+          <input
+            type="button"
+            name="start"
+            value="Back to Algorithmic Visualisation"
+            class="btn btn-green"
+            onclick="loadSimulation()"
+          />
+        </div>
+      </div>
+    
+      <!-- ========= content for gameboard ========= -->
+      <div id="gameboard">
+        <div id="up">
+          <div id="places">
+            <fieldset class="place" id="park">
+              <legend class="icon"><img src="images/park.png" alt="park"></legend>
+              Park
+            </fieldset>
+            <fieldset class="place" id="temple">
+              <legend class="icon"><img src="images/temple.png" alt="temple"></legend>
+              Temple
+            </fieldset>
+            <fieldset class="place" id="school">
+              <legend class="icon"><img src="images/school.png" alt="school"></legend>
+              School
+            </fieldset>
+            <fieldset class="place" id="hospital">
+              <legend class="icon"><img src="images/hospital.png" alt="hospital"></legend>
+              Hospital
+            </fieldset>
+            <fieldset class="place" id="bus">
+              <legend class="icon"><img src="images/bus.png" style="background: #b3a55b;" alt="bus"></legend>
+              Bus Stop
+            </fieldset>
+            <fieldset class="place" id="railway">
+              <legend class="icon"><img src="images/train.png" alt="railway"></legend>
+              Railway
+            </fieldset>
+            <fieldset class="place" id="shopping">
+              <legend class="icon"><img src="images/mall.png" alt=""></legend>
+              Mall
+            </fieldset>
           </div>
         </div>
 
-        <!-- ============= Canvas area ends here ============ -->
+        <div id="down">
+          <img src="images/policeman.png" alt="" id="cop" class="cop animate">
+          <div id="trail">
+            <div class="spot"></div>
+            <div class="spot"></div>
+            <div class="spot"></div>
+            <div class="spot"></div>
+            <div class="spot"></div>
+            <div class="spot"></div>
+            <div class="spot"></div>
+            <div class="spot"></div>
+          </div>
 
-        <!-- ========= This is Input Area ======== -->
-        <div id="input" class="box box-half hide">
-          <!-- <span class="drag" id="drag"><img src="moveicon.png" alt="drag icon"></span> -->
-          <h2>Enter the values to perform Linear Search</h2>
-          <!-- <form action="" method="post"> -->
+          <div class="btn-container">
+            <div class="btn btn-yellow" onclick="location.reload();">Search Again ↺ </div>
+            <input
+              type="button"
+              name="start"
+              value="Jump to Algorithmic Visualisation"
+              class="btn btn-green"
+              onclick="loadSimulation()"
+            /> 
+          </div>
+
+          <div id="content-row">
+            <!-- ========== tooltip label ============ -->
+            <div class="tooltip">
+              <div class="right">
+                <h4 style="color: #d0fffd; font-weight: 400; text-shadow: none; text-align: left; font-size: 16px;">What's your Status, Cop?</h4>
+                <p id="status" class="animtext"></p>
+                <i></i>
+              </div>
+            </div>           
+
+            <!-- ========= drop icon ========= -->
+            <div id="clickIcon" onclick="drop();">
+              <span style="padding: 20px 10px; font-size: 18px; color: #dbdbdb;">Click Here ^_~</span>
+              <img src="images/bomb.png" alt="bomb icon" id="bomb" class="blinkbomb" caption="Click Me!">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== container for simulator area ===== -->
+      <div id="simulator-area">
+        <div id="container">
+          <!-- ======= This is Canvas area ========= -->
+          <div id="canvas" class="box box-full">
+            <h2 style="position: absolute">Linear Search Visualisation</h2>
+  
+            <!-- Canvas Element to draw Animations -->
+            <div id="canvas-wrapper">
+              <canvas id="board"></canvas>
+            </div>
+  
+            <!-- Labels to show data steps -->
+            <!-- <h3>Current Step -></h3> -->
+            <div class="check" id="check">
+              <p id="label1"></p>
+              <p id="label2"></p>
+            </div>
+  
+            <!-- Current Step in Algorithm -->
+            <li class="code-line current-step" id="current-step">
+              Current Algorithm steps explaination will appear here<br />
+            </li>
+  
+            <!-- Canvas Actions -->
+            <div class="btn-container" id="actions">
+              <input
+                type="button"
+                name="input"
+                value="< Prev"
+                onclick="prev()"
+                class="btn btn-yellow hide"
+                id="prev"
+              />
+              <a href="#canvas">
+                <input
+                  type="button"
+                  name="reset"
+                  value="Start"
+                  onclick="start()"
+                  class="btn btn-red show"
+                  id="start"
+                />
+              </a>
+  
+              <a href="#canvas">
+                <input
+                  hidden
+                  type="button"
+                  name=""
+                  value="< Reset"
+                  onclick="previous_step()"
+                  class="btn btn-red show"
+                  id="user_prev"
+                />
+              </a>
+              <a href="#canvas">
+                <input
+                  hidden
+                  type="button"
+                  name=""
+                  value="Next Step>"
+                  onclick="next_step()"
+                  class="btn btn-green"
+                  id="user_next"
+                />
+              </a>
+  
+              <input
+                type="button"
+                name="start"
+                value="Next >"
+                onclick="next()"
+                class="btn btn-green hide"
+                id="next"
+              />
+            </div>
+          </div>
+  
+          <!-- ============= Canvas area ends here ============ -->
+  
+          <!-- ========= This is Input Area ======== -->
+          <div id="input" class="box box-half hide">
+            <!-- <span class="drag" id="drag"><img src="moveicon.png" alt="drag icon"></span> -->
+            <h2>Enter the values to perform Linear Search</h2>
+            <!-- <form action="" method="post"> -->
             <div class="inputs">
               <input
                 type="text"
@@ -139,13 +333,6 @@
                 placeholder="Element to Search"
                 required
               /><br />
-              <select id="speed" class="select">
-                <option value="1" selected="selected">
-                  Select for slow Animation Speed
-                </option>
-                <option value="2">0.5x</option>
-                <option value="3">0.25x</option>
-              </select>
             </div>
   
             <!-- Actions -->
@@ -154,7 +341,7 @@
                 <input
                   type="button"
                   name="input"
-                  value="Show"
+                  value="Show array"
                   onclick="execute()"
                   class="btn btn-yellow"
                 />
@@ -168,40 +355,33 @@
                   class="btn btn-red"
                 />
               </a>
-              <a href="#canvas">
-                <input
-                  type="submit"
-                  name="start"
-                  value="Search"
-                  onclick="search()"
-                  class="btn btn-green"
-                />
-              </a>
             </div>
-          <!-- </form> -->
-        </div>
-
-        <!-- ========= This is code area ========== -->
-        <div id="code" class="box box-half">
-          <!-- <span class="drag" id="mydiv"><img src="moveicon.png" alt="drag icon" id="mydivheader"></span> -->
-          <h2>Step-by-Step Code Run</h2>
-          <div id="code-panel">
-            <li class="code-line" id="l1">LINEAR_SEARCH(A, N, VAL)</li>
-            <li class="code-line" id="l2">Step 1: [INITIALIZE] SET POS = -1</li>
-            <li class="code-line" id="l3">Step 2: [INITIALIZE] SET I = 1</li>
-            <li class="code-line" id="l4">Step 3: Repeat Step 4 while I<=N</li>
-            <li class="code-line" id="l5">
-              Step 4: IF A[I] = VAL SET POS = I PRINT POS Go to Step 6 [END OF
-              IF] SET I = I + 1 [END OF LOOP]
-            </li>
-            <li class="code-line" id="l6">
-              Step 5: IF POS = -1 PRINT " VALUE IS NOT PRESENTIN THE ARRAY "
-              [END OF IF]
-            </li>
-            <li class="code-line" id="l7">Step 6: EXIT</li>
+            <!-- </form> -->
+          </div>
+  
+          <!-- ========= This is code area ========== -->
+          <div id="code" class="box box-half">
+            <!-- <span class="drag" id="mydiv"><img src="moveicon.png" alt="drag icon" id="mydivheader"></span> -->
+            <h2>Step-by-Step Code Run</h2>
+            <div id="code-panel">
+              <li class="code-line" id="l1">LINEAR_SEARCH(A, N, VAL)</li>
+              <li class="code-line" id="l2">Step 1: [INITIALIZE] SET POS = -1</li>
+              <li class="code-line" id="l3">Step 2: [INITIALIZE] SET I = 1</li>
+              <li class="code-line" id="l4">Step 3: Repeat Step 4 while I<=N</li>
+              <li class="code-line" id="l5">
+                Step 4: IF A[I] = VAL SET POS = I PRINT POS Go to Step 6 [END OF
+                IF] SET I = I + 1 [END OF LOOP]
+              </li>
+              <li class="code-line" id="l6">
+                Step 5: IF POS = -1 PRINT " VALUE IS NOT PRESENTIN THE ARRAY "
+                [END OF IF]
+              </li>
+              <li class="code-line" id="l7">Step 6: EXIT</li>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   </body>
   <script src="js/script.js"></script>
